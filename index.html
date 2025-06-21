@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GRowMAX – We Digitize. You Grow.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(ellipse at 60% 20%, #1e293b 0%, #0a1626 100%);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: rgba(20, 30, 50, 0.85);
+      border-bottom: 1px solid rgba(0,216,255,0.12);
+      animation: fadeInDown 1s ease-out;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #00d8ff;
+    }
+    nav a {
+      margin-left: 2rem;
+      color: #c7eaff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #00d8ff;
+    }
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4rem 3rem;
+      animation: fadeIn 2s ease-in;
+    }
+    .hero-text {
+      max-width: 600px;
+    }
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+    .hero-desc {
+      font-size: 1.2rem;
+      color: #c7eaff;
+      margin-bottom: 2rem;
+    }
+    .cta-btn {
+      background: linear-gradient(90deg, #00d8ff, #00c6ff);
+      color: #0a1626;
+      font-weight: 700;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      box-shadow: 0 0 16px 2px #00d8ff55;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cta-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px 5px #00d8ff99;
+    }
+    .section {
+      padding: 4rem 3rem;
+      animation: fadeUp 1s ease-in;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .card {
+      background: rgba(10, 22, 38, 0.85);
+      border: 1px solid #1a2a3d;
+      border-radius: 18px;
+      padding: 2rem;
+      flex: 1 1 200px;
+      box-shadow: 0 2px 24px 0 #00d8ff22;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 32px 4px #00d8ff55;
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #00d8ff;
+    }
+    .card p {
+      color: #c7eaff;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #0a1626;
+      color: #c7eaff;
+      animation: fadeIn 1s ease-in;
+    }
+    #chat-icon {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #00d8ff, #00c6ff);
+      border-radius: 50%;
+      box-shadow: 0 0 24px #00d8ffaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 9999;
+    }
+    #chat-icon:hover {
+      box-shadow: 0 0 32px #00d8ffff;
+    }
+    #chat-icon svg {
+      width: 32px;
+      height: 32px;
+      fill: #0a1626;
+    }
+    #ai-agent {
+      position: fixed;
+      bottom: 100px;
+      right: 32px;
+      z-index: 9999;
+    }
+    #ai-agent-bubble {
+      background: linear-gradient(135deg, #00d8ff, #00c6ff);
+      box-shadow: 0 0 32px 8px #00d8ff,0 0 16px 2px #00c6ff;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+    #ai-agent-bubble svg {
+      width: 38px;
+      height: 38px;
+    }
+    #ai-agent-window {
+      display: none;
+      position: absolute;
+      bottom: 80px;
+      right: 0;
+      width: 340px;
+      max-width: 90vw;
+      background: rgba(30,34,47,0.97);
+      backdrop-filter: blur(18px);
+      border-radius: 22px;
+      box-shadow: 0 8px 32px 0 #00d8ff,0 0 32px 0 #00c6ff;
+      padding: 0;
+      overflow: hidden;
+    }
+    #ai-agent-header {
+      padding: 1.2rem 1rem 0.5rem 1rem;
+      border-bottom: 1px solid #00d8ff;
+      font-family: 'Inter',sans-serif;
+      font-size: 1.1rem;
+      color: #00d8ff;
+      text-shadow: 0 2px 8px #00d8ff;
+    }
+    #ai-agent-messages {
+      height: 260px;
+      overflow-y: auto;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+    #ai-agent-form {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.7rem 1rem 1rem 1rem;
+      background: rgba(30,34,47,0.7);
+    }
+    #ai-agent-input {
+      flex: 1;
+      padding: 0.7rem 1rem;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 1rem;
+      font-family: 'Inter',sans-serif;
+      outline: none;
+    }
+    #ai-agent-form button {
+      background: #00d8ff;
+      color: #0f0f1c;
+      border: none;
+      border-radius: 12px;
+      padding: 0.7rem 1.2rem;
+      font-family: 'Inter',sans-serif;
+      font-weight: 600;
+      box-shadow: 0 0 16px 2px #00d8ff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #ai-agent-form button:hover {
+      background: #00c6ff;
+      color: #fff;
+    }
+    @media (max-width: 600px) {
+      #ai-agent-window { width: 98vw; right: -10vw; }
+    }
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.2rem 1rem;
+      }
+      .logo {
+        margin-bottom: 0.5rem;
+      }
+      nav {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+      }
+      nav a {
+        margin: 0.5rem 0 0.5rem 0;
+        padding: 0.8rem 1.2rem;
+        width: 100%;
+        border-radius: 8px;
+        font-size: 1.1rem;
+      }
+      .nav-toggle {
+        display: block !important;
+        position: absolute;
+        top: 0.2rem;
+        right: 0.5rem;
+        cursor: pointer;
+      }
+      nav {
+        background: rgba(20, 30, 50, 0.98);
+        border-radius: 12px;
+        box-shadow: 0 4px 24px #00d8ff22;
+      }
+      nav:not(.open) a {
+        display: none;
+      }
+      nav.open a {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GRowMAX</div>
+    <nav id="main-nav">
+      <a href="#">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <span class="nav-toggle" id="nav-toggle" style="display:none;">
+        <svg width="32" height="32" viewBox="0 0 32 32"><rect y="6" width="32" height="4" rx="2" fill="#00d8ff"/><rect y="14" width="32" height="4" rx="2" fill="#00d8ff"/><rect y="22" width="32" height="4" rx="2" fill="#00d8ff"/></svg>
+      </span>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-title">We Digitize. You Grow.</div>
+      <div class="hero-desc">Empowering your business with cutting-edge digital solutions, websites, apps, systems, and more.</div>
+      <a href="#contact" class="cta-btn">Get a Quote</a>
+    </div>
+    <div class="hero-graphic" style="max-width:400px;flex:1;display:flex;align-items:center;justify-content:center;"></div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="section-title">Our Services</div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Web Development</h3>
+        <p>Custom websites tailored for performance and brand identity.</p>
+      </div>
+      <div class="card">
+        <h3>Mobile Apps</h3>
+        <p>iOS & Android apps built for your customers' convenience.</p>
+      </div>
+      <div class="card">
+        <h3>Systems</h3>
+        <p>Advanced business systems that streamline and scale operations.</p>
+      </div>
+      <div class="card">
+        <h3>Digital Marketing</h3>
+        <p>Smart strategies to boost your global digital presence.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="portfolio">
+    <div class="section-title">Our Work</div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Business Website</h3>
+        <p>Professional site for global corporate presence.</p>
+      </div>
+      <div class="card">
+        <h3>E-Commerce Platform</h3>
+        <p>Sell anything online with integrated payments and dashboards.</p>
+      </div>
+      <div class="card">
+        <h3>Travel Booking App</h3>
+        <p>Plan trips and book experiences from mobile devices.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-title">Let's Work Together</div>
+    <p style="text-align:center;">Contact us for innovative digital solutions to elevate your business.</p>
+    <div style="text-align:center;">
+      <a href="https://wa.me/940707979339" target="_blank" class="cta-btn">Contact Us on WhatsApp</a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 GRowMAX. All rights reserved.
+  </footer>
+
+  <div id="chat-icon" onclick="window.open('https://wa.me/940707979339?text=Hi%2C%20I%20want%20to%20talk%20about%20digital%20solutions%20for%20my%20business','_blank')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M16 3C8.8 3 3 8.4 3 15c0 2.6.9 5 2.4 7L3 29l7-2.3c1.8 1 3.9 1.6 6 1.6 7.2 0 13-5.4 13-12S23.2 3 16 3zm0 22c-2 0-4-.6-5.6-1.6l-.4-.3-4.1 1.4 1.4-4-.3-.4C6 18.2 5.4 16.6 5.4 15 5.4 9.8 10.2 6 16 6s10.6 3.8 10.6 9c0 5-4.4 9-10.6 9z" fill="#0a1626"/></svg>
+  </div>
+
+  <div id="ai-agent">
+    <div id="ai-agent-bubble" title="Chat with GRowMAX AI Agent">
+      <svg width="38" height="38" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#0a1626" stroke="#00d8ff" stroke-width="4"/><ellipse cx="32" cy="32" rx="16" ry="10" fill="#00c6ff" opacity="0.3"/><ellipse cx="32" cy="32" rx="8" ry="4" fill="#00d8ff" opacity="0.5"/><circle cx="32" cy="32" r="6" fill="#fff"/></svg>
+    </div>
+    <div id="ai-agent-window">
+      <div id="ai-agent-header">GRowMAX AI Agent</div>
+      <div id="ai-agent-messages"></div>
+      <form id="ai-agent-form">
+        <input id="ai-agent-input" type="text" placeholder="Ask about our services, work, or business solutions..." autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+  <style>
+    #ai-agent {
+      position: fixed;
+      bottom: 100px;
+      right: 32px;
+      z-index: 9999;
+    }
+    #ai-agent-bubble {
+      background: linear-gradient(135deg, #00d8ff, #00c6ff);
+      box-shadow: 0 0 32px 8px #00d8ff,0 0 16px 2px #00c6ff;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+    #ai-agent-bubble svg {
+      width: 38px;
+      height: 38px;
+    }
+    #ai-agent-window {
+      display: none;
+      position: absolute;
+      bottom: 80px;
+      right: 0;
+      width: 340px;
+      max-width: 90vw;
+      background: rgba(30,34,47,0.97);
+      backdrop-filter: blur(18px);
+      border-radius: 22px;
+      box-shadow: 0 8px 32px 0 #00d8ff,0 0 32px 0 #00c6ff;
+      padding: 0;
+      overflow: hidden;
+    }
+    #ai-agent-header {
+      padding: 1.2rem 1rem 0.5rem 1rem;
+      border-bottom: 1px solid #00d8ff;
+      font-family: 'Inter',sans-serif;
+      font-size: 1.1rem;
+      color: #00d8ff;
+      text-shadow: 0 2px 8px #00d8ff;
+    }
+    #ai-agent-messages {
+      height: 260px;
+      overflow-y: auto;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+    #ai-agent-form {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.7rem 1rem 1rem 1rem;
+      background: rgba(30,34,47,0.7);
+    }
+    #ai-agent-input {
+      flex: 1;
+      padding: 0.7rem 1rem;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 1rem;
+      font-family: 'Inter',sans-serif;
+      outline: none;
+    }
+    #ai-agent-form button {
+      background: #00d8ff;
+      color: #0f0f1c;
+      border: none;
+      border-radius: 12px;
+      padding: 0.7rem 1.2rem;
+      font-family: 'Inter',sans-serif;
+      font-weight: 600;
+      box-shadow: 0 0 16px 2px #00d8ff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #ai-agent-form button:hover {
+      background: #00c6ff;
+      color: #fff;
+    }
+    @media (max-width: 600px) {
+      #ai-agent-window { width: 98vw; right: -10vw; }
+    }
+  </style>
+  <script>
+    // Mobile nav toggle
+    const nav = document.getElementById('main-nav');
+    const navToggle = document.getElementById('nav-toggle');
+    function closeNavOnLink() {
+      if(window.innerWidth <= 800) nav.classList.remove('open');
+    }
+    if(navToggle) {
+      navToggle.onclick = () => nav.classList.toggle('open');
+      nav.querySelectorAll('a').forEach(link => link.onclick = closeNavOnLink);
+    }
+    window.addEventListener('resize', () => {
+      if(window.innerWidth > 800) nav.classList.remove('open');
+    });
+    // AI Agent logic for GRowMAX business
+    const aiAgentBubble = document.getElementById('ai-agent-bubble');
+    const aiAgentWindow = document.getElementById('ai-agent-window');
+    const aiAgentForm = document.getElementById('ai-agent-form');
+    const aiAgentInput = document.getElementById('ai-agent-input');
+    const aiAgentMessages = document.getElementById('ai-agent-messages');
+    let aiAgentFirstOpen = true;
+    aiAgentBubble.onclick = () => {
+      aiAgentWindow.style.display = aiAgentWindow.style.display === 'none' ? 'block' : 'none';
+      if (aiAgentWindow.style.display === 'block' && aiAgentFirstOpen) {
+        aiAgentMessages.innerHTML = `<div style='margin-bottom:0.7rem;text-align:left;'><span style='background:rgba(0,198,255,0.18);color:#fff;padding:0.5rem 1rem;border-radius:18px 18px 18px 6px;display:inline-block;backdrop-filter:blur(8px);box-shadow:0 2px 12px 0 #00c6ff;'>👋 Hi! I'm your GRowMAX digital solutions assistant.<br>Ask me anything about our services, portfolio, or how we can help your business grow.</span></div>`;
+        aiAgentFirstOpen = false;
+      }
+    };
+    document.addEventListener('mousedown', e => {
+      if(aiAgentWindow.style.display === 'block' && !aiAgentWindow.contains(e.target) && !aiAgentBubble.contains(e.target)) {
+        aiAgentWindow.style.display = 'none';
+      }
+    });
+    function showAgentTyping() {
+      const typingId = 'ai-agent-typing';
+      if (!document.getElementById(typingId)) {
+        aiAgentMessages.innerHTML += `<div id='${typingId}' style='margin-bottom:0.7rem;text-align:left;'><span style='background:rgba(0,198,255,0.10);color:#fff;padding:0.5rem 1rem;border-radius:18px 18px 18px 6px;display:inline-block;font-style:italic;opacity:0.7;'>GRowMAX is typing…</span></div>`;
+        aiAgentMessages.scrollTop = aiAgentMessages.scrollHeight;
+      }
+    }
+    function hideAgentTyping() {
+      const typing = document.getElementById('ai-agent-typing');
+      if (typing) typing.remove();
+    }
+    async function sendAgentMessage(userMsg) {
+      aiAgentMessages.innerHTML += `<div style='margin-bottom:0.7rem;text-align:right;'><span style='background:rgba(0,216,255,0.18);color:#0f0f1c;padding:0.5rem 1rem;border-radius:18px 18px 6px 18px;display:inline-block;backdrop-filter:blur(8px);box-shadow:0 2px 12px 0 #00d8ff;'>${userMsg}</span></div>`;
+      aiAgentInput.value = '';
+      aiAgentMessages.scrollTop = aiAgentMessages.scrollHeight;
+      showAgentTyping();
+      // Gemini API call
+       const API_KEY = "AIzaSyAVtQ7ZXtMRKaOVLwCGU4MjXadpwq4krxA";
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            contents: [{parts: [{text: userMsg + "\n\n(You are a friendly, professional GRowMAX employee. Answer as a digital solutions consultant. Be concise, clear, and business-focused. If the user asks to contact, always provide the WhatsApp: +94 070 797 9339 and the link https://wa.me/940707979339. If asked about services, portfolio, or business solutions, answer as a GRowMAX team member.)"}]}]
+          })
+        });
+        const data = await res.json();
+        hideAgentTyping();
+        let aiMsg = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0].text) || 'Sorry, I could not answer.';
+        if(aiMsg.length > 400) aiMsg = aiMsg.slice(0, 400) + '...';
+        aiAgentMessages.innerHTML += `<div style='margin-bottom:0.7rem;text-align:left;'><span style='background:rgba(0,198,255,0.18);color:#fff;padding:0.5rem 1rem;border-radius:18px 18px 18px 6px;display:inline-block;backdrop-filter:blur(8px);box-shadow:0 2px 12px 0 #00c6ff;'>${aiMsg}</span></div>`;
+        aiAgentMessages.scrollTop = aiAgentMessages.scrollHeight;
+      } catch (e) {
+        hideAgentTyping();
+        aiAgentMessages.innerHTML += `<div style='margin-bottom:0.7rem;text-align:left;'><span style='background:#222;color:#fff;padding:0.5rem 1rem;border-radius:18px;'>Error: ${e.message}</span></div>`;
+        aiAgentMessages.scrollTop = aiAgentMessages.scrollHeight;
+      }
+    }
+    aiAgentForm.onsubmit = e => {
+      e.preventDefault();
+      const msg = aiAgentInput.value.trim();
+      if(msg) sendAgentMessage(msg);
+    };
+  </script>
+</body>
+</html>
+
