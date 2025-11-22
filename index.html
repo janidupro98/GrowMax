@@ -349,7 +349,7 @@
     <div class="section-title">Let's Work Together</div>
     <p style="text-align:center;">Contact us for innovative digital solutions to elevate your business.</p>
     <div style="text-align:center;">
-      <a href="https://wa.me/940707979339" target="_blank" class="cta-btn">Contact Us on WhatsApp</a>
+      <a href="https://wa.me/94707879479" target="_blank" class="cta-btn">Contact Us on WhatsApp</a>
     </div>
   </section>
 
@@ -515,14 +515,39 @@
       aiAgentMessages.scrollTop = aiAgentMessages.scrollHeight;
       showAgentTyping();
       // Gemini API call
-       const API_KEY = "AIzaSyAVtQ7ZXtMRKaOVLwCGU4MjXadpwq4krxA";
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+      const API_KEY = "AIzaSyCyx9TNoIrn0bNWZjK40qVaVIdAlLMS5OY";
+      const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+      
+      const systemPrompt = `You are Maya, a friendly and professional customer support representative for GrowMAX, a web and digital solutions company.
+
+About GrowMAX:
+- We offer web design & development services
+- We provide digital marketing solutions
+- We help businesses grow online with strategy and technology
+- Our mission is "We Digitize. You Grow."
+- Contact: WhatsApp +94 707 879 479 (https://wa.me/94707879479)
+
+Guidelines:
+- Respond in a warm, conversational, and human-like tone
+- Be helpful and provide clear information about our services
+- Keep responses concise (2-3 sentences usually)
+- Use natural language, not robotic responses
+- If asked about pricing or specific projects, offer to connect via WhatsApp`;
+
       try {
         const res = await fetch(API_URL, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
-            contents: [{parts: [{text: userMsg + "\n\n(You are a friendly, professional GRowMAX employee. Answer as a digital solutions consultant. Be concise, clear, and business-focused. If the user asks to contact, always provide the WhatsApp: +94 070 797 9339 and the link https://wa.me/940707979339. If asked about services, portfolio, or business solutions, answer as a GRowMAX team member.)"}]}]
+            contents: [
+              {
+                parts: [
+                  {
+                    text: systemPrompt + "\n\nUser: " + userMsg
+                  }
+                ]
+              }
+            ]
           })
         });
         const data = await res.json();
@@ -535,6 +560,7 @@ const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-
         hideAgentTyping();
         aiAgentMessages.innerHTML += `<div style='margin-bottom:0.7rem;text-align:left;'><span style='background:#222;color:#fff;padding:0.5rem 1rem;border-radius:18px;'>Error: ${e.message}</span></div>`;
         aiAgentMessages.scrollTop = aiAgentMessages.scrollHeight;
+        console.error('AI Error:', e);
       }
     }
     aiAgentForm.onsubmit = e => {
